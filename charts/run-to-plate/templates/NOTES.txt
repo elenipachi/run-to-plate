@@ -1,0 +1,16 @@
+Run-to-Plate is deployed as release "{{ .Release.Name }}" in namespace "{{ .Release.Namespace }}".
+
+Check the pod:
+  kubectl get pods -n {{ .Release.Namespace }} -l app.kubernetes.io/instance={{ .Release.Name }}
+
+See the startup logs:
+  kubectl logs -n {{ .Release.Namespace }} deploy/{{ include "run-to-plate.fullname" . }}
+{{- if .Values.ingress.enabled }}
+
+Open: http{{ if .Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.host }}
+{{- else }}
+
+Open it locally:
+  kubectl port-forward -n {{ .Release.Namespace }} svc/{{ include "run-to-plate.fullname" . }} 8080:{{ .Values.service.port }}
+  then visit http://localhost:8080
+{{- end }}

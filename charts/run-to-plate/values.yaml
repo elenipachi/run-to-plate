@@ -1,0 +1,41 @@
+replicaCount: 1
+
+image:
+  # Replace YOUR-GITHUB-USERNAME (lowercase) with your GitHub username
+  repository: ghcr.io/YOUR-GITHUB-USERNAME/run-to-plate
+  tag: latest
+  pullPolicy: Always
+
+# Needed only if the image on ghcr.io is private, e.g.
+# imagePullSecrets:
+#   - name: ghcr-pull
+imagePullSecrets: []
+
+containerPort: 3000
+
+# Becomes a ConfigMap; read by server.py and shown in the app header.
+# Only APP_ENV and APP_MESSAGE are passed to the browser. Never put secrets here.
+env:
+  APP_ENV: vcluster
+  APP_MESSAGE: Deployed with Helm
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  host: run-to-plate.example.com
+  tls: []
+  #  - secretName: run-to-plate-tls
+  #    hosts:
+  #      - run-to-plate.example.com
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 32Mi
+  limits:
+    memory: 128Mi
