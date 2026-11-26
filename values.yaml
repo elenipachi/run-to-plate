@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   # Replace YOUR-GITHUB-USERNAME (lowercase) with your GitHub username
-  repository: ghcr.io/YOUR-GITHUB-USERNAME/run-to-plate
+  repository: ghcr.io/elenipachi/run-to-plate
   tag: latest
   pullPolicy: Always
 
